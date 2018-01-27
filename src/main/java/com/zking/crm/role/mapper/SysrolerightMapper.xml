@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.crm.role.mapper.SysrolerightMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.crm.role.model.Sysroleright" >
+    <constructor >
+      <idArg column="rf_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="role_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="right_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rf_id, role_id, right_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role_right
+    where rf_id = #{rfId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_role_right
+    where rf_id = #{rfId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zking.crm.role.model.Sysroleright" >
+    insert into sys_role_right (rf_id, role_id, right_code
+      )
+    values (#{rfId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{rightCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.crm.role.model.Sysroleright" >
+    insert into sys_role_right
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rfId != null" >
+        rf_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="rightCode != null" >
+        right_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rfId != null" >
+        #{rfId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="rightCode != null" >
+        #{rightCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.crm.role.model.Sysroleright" >
+    update sys_role_right
+    <set >
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="rightCode != null" >
+        right_code = #{rightCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rf_id = #{rfId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.crm.role.model.Sysroleright" >
+    update sys_role_right
+    set role_id = #{roleId,jdbcType=BIGINT},
+      right_code = #{rightCode,jdbcType=VARCHAR}
+    where rf_id = #{rfId,jdbcType=BIGINT}
+  </update>
+</mapper>

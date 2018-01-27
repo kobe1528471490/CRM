@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+<!-- shiroFilter配置 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager"></property>
+		<!-- 配置登录界面 -->
+		<property name="loginUrl" value="/login.jsp"></property>
+		<!-- 配置成功界面 -->
+		<property name="successUrl" value="/index.jsp"></property>
+		<!-- 配置过滤 -->
+		<property name="filterChainDefinitions">
+			<value>
+				/login.jsp*=anon
+				/index.jsp*=authc
+			</value>
+		</property>
+		
+	</bean>
+<!-- SecurityManager配置 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="myRealm"></property>
+	</bean>
+
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+<!-- 自定义realm配置 -->
+	<bean id="myRealm" class="com.zking.crm.role.shiro.MyRealm">
+	</bean>
+
+</beans>
